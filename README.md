@@ -401,6 +401,9 @@ The suite covers, among other things:
 
 Passing tests are **not** treated as a substitute for real firmware proof.
 
+## BTRFS compatibility
+Btrfs root filesystems are supported by the topology-aware design. Snapper can coexist with the switcher, but bootable-snapshot integration such as grub-btrfs has not yet been explicitly validated.
+
 ## Documentation
 
 - [`CHANGELOG.md`](CHANGELOG.md) — revision history and real-hardware discoveries
