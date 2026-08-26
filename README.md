@@ -1,4 +1,4 @@
-# CachyOS Bootloader Switcher — r46
+# CachyOS Bootloader Switcher — r47
 
 A safety-first UEFI bootloader migration and cross-backend backup-restore tool for CachyOS.
 
@@ -8,6 +8,23 @@ Supported bootloaders:
 - Limine
 - systemd-boot
 - rEFInd
+
+
+## r47: fix multi-assignment Limine backup cmdline restore validation
+
+A real-hardware NVMe restore test exposed a false-negative Limine backup preflight. The backup was valid and its effective Limine policy matched the current GRUB runtime, but `/etc/default/limine` expressed that policy through **multiple** `KERNEL_CMDLINE[default]+=` lines.
+
+The inherited restore extractor read only the first matching line, so a later appended parameter such as `intel_pstate=passive` disappeared from the backup-side comparison. The existing semantic comparator then correctly reported a difference against GRUB — but it had been given an incomplete reconstruction of the Limine policy.
+
+r47 reconstructs the effective backed-up default policy from every supported assignment without sourcing or evaluating backup configuration:
+
+- `KERNEL_CMDLINE[default]=...` replaces earlier accumulated policy
+- `KERNEL_CMDLINE[default]+=...` appends to the effective policy
+- quoted and unquoted assignment values are accepted in the same narrow line-oriented parser
+- the existing semantic comparator remains authoritative and still filters only loader-specific `BOOT_IMAGE=` / `boot_image=` / `initrd=` artifacts
+- meaningful drift such as a changed root UUID, mount mode, `intel_pstate`, mitigations policy, or any other real kernel parameter still blocks restore
+
+The live migration engine and all ESP/NVRAM write paths are unchanged. This is a restore-preflight reconstruction fix only.
 
 ## Before you run this
 
@@ -53,7 +70,7 @@ The switcher contains topology and ownership checks that may reject unsupported 
 
 Secure Boot is **not currently part of the supported or validated configuration**.
 
-r46 does not manage:
+r47 does not manage:
 
 - shim trust chains
 - MOK enrollment
@@ -268,7 +285,7 @@ Do not manually bypass the one-time firmware test unless you are intentionally p
 
 ## Safety invariants
 
-r46 keeps the following rules:
+r47 keeps the following rules:
 
 - UEFI-only for live adapter transactions
 - preserve the detected ESP topology

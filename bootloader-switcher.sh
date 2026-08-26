@@ -2,7 +2,7 @@
 set -u
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-SWITCHER_RELEASE="r46"
+SWITCHER_RELEASE="r47"
 source "$SCRIPT_DIR/lib/common.sh"
 source "$SCRIPT_DIR/lib/storage.sh"
 source "$SCRIPT_DIR/lib/detect.sh"
@@ -52,6 +52,7 @@ source "$SCRIPT_DIR/lib/r43.sh"
 source "$SCRIPT_DIR/lib/r44.sh"
 source "$SCRIPT_DIR/lib/r45.sh"
 source "$SCRIPT_DIR/lib/r46.sh"
+source "$SCRIPT_DIR/lib/r47.sh"
 
 select_target_bootloader() {
     local choice target current_name
@@ -206,6 +207,7 @@ CURRENT MODIFYING BACKENDS:
   - r44 rEFInd -> restored GRUB v3/v4 backup restore (enabled for hardware testing)
   - r45 VFAT-safe GRUB -> restored Limine v4 payload restore hotfix
   - r46 complete 12-edge cross-restore support-predicate consistency
+  - r47 effective multi-assignment Limine backup cmdline reconstruction
   - r38 transactional Limine -> restored-rEFInd v4 and rEFInd -> restored-Limine v3/v4 backup restore (enabled for hardware testing)
   - automatic BootNext + temporary root-owned systemd resume for supported cross-family migrations
   - runtime proof before destructive source retirement
@@ -219,6 +221,7 @@ r43 opened the rEFInd <-> systemd-boot v4 backup-restore pair; both directions s
 r44 closes the separate restore-dispatch gap exposed by sequential sanity testing: rEFInd -> restored GRUB v3/v4.
 r45 fixes the historical GRUB -> restored-Limine v4 tunnel so the managed payload is copied to the VFAT ESP without attempting unsupported Unix ownership/mode preservation.
 r46 aligns the internal cross-restore support predicate with the already-functional 12-edge interactive restore dispatcher by admitting GRUB -> restored rEFInd.
+r47 fixes Limine backup restore preflight when /etc/default/limine expresses one effective default cmdline across multiple KERNEL_CMDLINE[default]+= assignments.
 r40 enabled and subsequently hardware-proved the previously separate Limine -> rEFInd live migration path.
 r38 enables the bidirectional Limine <-> rEFInd backup-restore edge.
 r37 allows the rEFInd -> Limine live edge to preserve/clear inactive Limine filesystem residue transactionally instead of requiring a pristine target namespace; pre-existing canonical Limine NVRAM entries remain refused as ambiguous.

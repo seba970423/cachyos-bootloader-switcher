@@ -2396,7 +2396,7 @@ pass 'r36 fresh Limine target stage restores source-first/fallback state before 
 pass 'r36 fresh live Limine gate refuses pre-existing adapter-owned Limine residue instead of guessing ownership'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh
     awk '/source "\$SCRIPT_DIR\/lib\/r36.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r37.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh
     grep -Fq 'Executing %s adapter transaction...' lib/r26.sh
     grep -Fq '"${SWITCHER_RELEASE:-r26}"' lib/r26.sh
@@ -2523,7 +2523,7 @@ pass 'r37 interposes residue quarantine only after the source transaction snapsh
 pass 'r37 reuses the r30 transaction snapshot to restore exact inactive Limine filesystem residue over a failed candidate'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh
     grep -Fq 'source "$SCRIPT_DIR/lib/r37.sh"' bootloader-switcher.sh
     grep -Fq 'r30_prepare_limine_target_residue' lib/r37.sh
     grep -Fq 'r30_restore_limine_target_residue' lib/r37.sh
@@ -2725,7 +2725,7 @@ pass 'r38 generalizes the strict rEFInd-v4 restore preflight to a deeply validat
     grep -Fq 'grub:refind|limine:refind) r38_restore_refind_backup "$dir"' lib/r38.sh || exit 1
     grep -Fq 'refind:limine) r30_restore_limine_backup "$dir"' lib/r38.sh || exit 1
     grep -Fq 'Limine -> rEFInd *live migration*' lib/r38.sh || exit 1
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r38.sh"' bootloader-switcher.sh || exit 1
     grep -Fq 'r38: bidirectional Limine' README.md || exit 1
 )
@@ -2801,7 +2801,7 @@ CONF
 pass 'r39 removes only the stale source-EFI Limine menu chunk and preserves kernels, foreign EFI entries, and generic fallback'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r39.sh"' bootloader-switcher.sh || exit 1
     grep -Fq 'r39: Limine post-retirement menu reconciliation' README.md || exit 1
     grep -Fq 'r39_reconcile_limine_before_source_retirement' lib/r39.sh || exit 1
@@ -2935,7 +2935,7 @@ pass 'r40 Limine -> rEFInd live preflight requires canonical Limine source proof
 pass 'r40 routes Limine -> rEFInd through the generic source-preserving adapter transaction instead of the historical refusal path'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r40.sh"' bootloader-switcher.sh || exit 1
     awk '/source "\$SCRIPT_DIR\/lib\/r39.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r40.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh || exit 1
     grep -Fq '## r40: direct Limine → rEFInd live migration' README.md || exit 1
@@ -3139,7 +3139,7 @@ pass 'r41 systemd-boot -> Limine staging quarantines inactive Limine residue onl
 pass 'r41 routes all four new live directions through the shared source-preserving adapter executor'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r41.sh"' bootloader-switcher.sh || exit 1
     awk '/source "\$SCRIPT_DIR\/lib\/r40.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r41.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh || exit 1
     grep -Fq '## r41: complete the direct live matrix with systemd-boot' README.md || exit 1
@@ -3202,7 +3202,7 @@ pass 'r42 Limine policy override preserves the CachyOS theme path while feeding 
 pass 'r42 refuses a zero-exit limine-entry-tool result that still reports an explicit invalid-path diagnostic'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r42.sh"' bootloader-switcher.sh || exit 1
     awk '/source "\$SCRIPT_DIR\/lib\/r41.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r42.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh || exit 1
     grep -Fq '## r42: portable Limine cmdline staging and strict helper diagnostics' README.md || exit 1
@@ -3304,10 +3304,10 @@ pass 'r43 admits systemd-boot as a deeply validated source for the unchanged str
 pass 'r43 routes rEFInd -> restored systemd-boot and systemd-boot -> restored rEFInd through the existing strict target executors'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r43.sh"' bootloader-switcher.sh || exit 1
     awk '/source "\$SCRIPT_DIR\/lib\/r42.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r43.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh || exit 1
-    grep -Fq '# CachyOS Bootloader Switcher — r46' README.md || exit 1
+    grep -Fq '# CachyOS Bootloader Switcher — r47' README.md || exit 1
     grep -Fq '## r43: add the rEFInd ↔ systemd-boot backup-restore pair' README.md || exit 1
     grep -Fq '**rEFInd → restored systemd-boot v4**' README.md || exit 1
     grep -Fq '**systemd-boot → restored rEFInd v4**' README.md || exit 1
@@ -3419,10 +3419,10 @@ pass 'r44 interactive dispatcher covers the complete 12-edge restore graph and r
 pass 'r44 admits a deeply validated rEFInd source into the existing source-generic GRUB restore preflight without weakening the GRUB target namespace gate'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r44.sh"' bootloader-switcher.sh || exit 1
     awk '/source "\$SCRIPT_DIR\/lib\/r43.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r44.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh || exit 1
-    grep -Fq '# CachyOS Bootloader Switcher — r46' README.md || exit 1
+    grep -Fq '# CachyOS Bootloader Switcher — r47' README.md || exit 1
     grep -Fq '## r44: close the restore-matrix hole exposed by sequential sanity testing' README.md || exit 1
     grep -Fq 'refind:grub) r30_restore_grub_backup "$dir"' lib/r44.sh || exit 1
     grep -Fq 'grub:refind|refind:grub' lib/r26.sh || exit 1
@@ -3436,11 +3436,11 @@ printf '\nAll r44 regression tests passed.\n'
 printf '\nStarting r45 VFAT-safe historical GRUB -> restored-Limine v4 regression tests.\n'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r44.sh"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r45.sh"' bootloader-switcher.sh || exit 1
     awk '/source "\$SCRIPT_DIR\/lib\/r44.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r45.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh || exit 1
-    grep -Fq '# CachyOS Bootloader Switcher — r46' README.md || exit 1
+    grep -Fq '# CachyOS Bootloader Switcher — r47' README.md || exit 1
     grep -Fq '## r45: VFAT-safe GRUB → restored-Limine v4 payload copy' README.md || exit 1
     exit 0
 )
@@ -3540,7 +3540,7 @@ printf '\nStarting r46 cross-restore predicate-consistency regression tests.\n'
 pass 'r46 composes the real r30/r38/r43/r44/r46 predicate lineage and proves exactly all 12 cross-backend restore pairs with all diagonals closed'
 
 (
-    grep -Fq 'SWITCHER_RELEASE="r46"' bootloader-switcher.sh || exit 1
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r45.sh"' bootloader-switcher.sh || exit 1
     grep -Fq 'source "$SCRIPT_DIR/lib/r46.sh"' bootloader-switcher.sh || exit 1
     awk '/source "\$SCRIPT_DIR\/lib\/r45.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r46.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh || exit 1
@@ -3548,10 +3548,94 @@ pass 'r46 composes the real r30/r38/r43/r44/r46 predicate lineage and proves exa
     ! grep -Fq 'restore_backup_interactive()' lib/r46.sh || exit 1
     ! grep -Fq 'load_pending_state()' lib/r46.sh || exit 1
     ! grep -Fq 'r30_execute_restored_adapter' lib/r46.sh || exit 1
-    grep -Fq '# CachyOS Bootloader Switcher — r46' README.md || exit 1
+    grep -Fq '# CachyOS Bootloader Switcher — r47' README.md || exit 1
     grep -Fq '## r46: make the restore support predicate tell the truth' README.md || exit 1
     exit 0
 )
 pass 'r46 stays surgical: one support-predicate edge, no dispatcher/pending/transaction-engine duplication, and release wiring is layered after r45'
 
 printf '\nAll r46 regression tests passed.\n'
+
+printf '\nStarting r47 effective Limine backup-cmdline reconstruction regression tests.\n'
+
+(
+    set +e
+    # r47 is intentionally a narrow runtime override. Provide the inherited
+    # extractor symbol, then verify the real multi-assignment shape captured
+    # by the NVMe hardware diagnostic.
+    r23_backup_limine_cmdline() { return 1; }
+    source lib/r47.sh
+
+    tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+    mkdir -p "$tmp/files/etc/default"
+    cat >"$tmp/files/etc/default/limine" <<'CFG'
+ESP_PATH="/boot"
+KERNEL_CMDLINE[default]+="quiet nowatchdog splash rw root=UUID=042a9144-a5a0-44bb-9dea-e666981f90ce mitigations=off"
+BOOT_ORDER="*, *lts, *fallback, Snapshots"
+
+# Added by intel-pstate-governor
+KERNEL_CMDLINE[default]+=" intel_pstate=passive"
+CFG
+
+    got=$(r23_backup_limine_cmdline "$tmp") || exit 1
+    [[ $got == *'quiet nowatchdog splash rw root=UUID=042a9144-a5a0-44bb-9dea-e666981f90ce mitigations=off'* ]] || { printf 'got=%s\n' "$got" >&2; exit 1; }
+    [[ $got == *'intel_pstate=passive'* ]] || { printf 'got=%s\n' "$got" >&2; exit 1; }
+    exit 0
+)
+pass 'r47 reconstructs every appended KERNEL_CMDLINE[default] fragment from a Limine backup instead of dropping later policy'
+
+(
+    set +e
+    source lib/staged.sh
+    r23_backup_limine_cmdline() { return 1; }
+    source lib/r47.sh
+
+    tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+    mkdir -p "$tmp/files/etc/default"
+    cat >"$tmp/files/etc/default/limine" <<'CFG'
+KERNEL_CMDLINE[default]+="quiet nowatchdog splash rw root=UUID=042a9144-a5a0-44bb-9dea-e666981f90ce mitigations=off"
+KERNEL_CMDLINE[default]+=" intel_pstate=passive"
+CFG
+
+    backup=$(r23_backup_limine_cmdline "$tmp") || exit 1
+    grub='BOOT_IMAGE=/vmlinuz-linux-cachyos root=UUID=042a9144-a5a0-44bb-9dea-e666981f90ce rw intel_pstate=passive quiet nowatchdog splash mitigations=off'
+    pending_cmdline_equivalent "$backup" "$grub" || { printf 'backup=%s\ngrub=%s\n' "$backup" "$grub" >&2; exit 1; }
+    drift=${grub/mitigations=off/mitigations=auto}
+    ! pending_cmdline_equivalent "$backup" "$drift" || exit 1
+    exit 0
+)
+pass 'r47 makes the captured Limine backup token-equivalent to the proven GRUB runtime while genuine extra policy still fails closed'
+
+(
+    set +e
+    r23_backup_limine_cmdline() { return 1; }
+    source lib/r47.sh
+
+    tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+    mkdir -p "$tmp/files/etc/default"
+    cat >"$tmp/files/etc/default/limine" <<'CFG'
+KERNEL_CMDLINE[default]+="old=1 quiet"
+KERNEL_CMDLINE[default]="root=UUID=test rw mitigations=off"
+KERNEL_CMDLINE[default]+=' intel_pstate=passive'
+CFG
+
+    got=$(r23_backup_limine_cmdline "$tmp") || exit 1
+    [[ $got == 'root=UUID=test rw mitigations=off  intel_pstate=passive' ]] || { printf 'got=%q\n' "$got" >&2; exit 1; }
+    [[ $got != *'old=1'* ]] || exit 1
+    exit 0
+)
+pass 'r47 honors plain KERNEL_CMDLINE[default]= replacement before later append fragments without evaluating backup code'
+
+(
+    grep -Fq 'SWITCHER_RELEASE="r47"' bootloader-switcher.sh || exit 1
+    grep -Fq 'source "$SCRIPT_DIR/lib/r46.sh"' bootloader-switcher.sh || exit 1
+    grep -Fq 'source "$SCRIPT_DIR/lib/r47.sh"' bootloader-switcher.sh || exit 1
+    awk '/source "\$SCRIPT_DIR\/lib\/r46.sh"/{a=NR} /source "\$SCRIPT_DIR\/lib\/r47.sh"/{b=NR} END{exit !(a && b && b>a)}' bootloader-switcher.sh || exit 1
+    grep -Fq '# CachyOS Bootloader Switcher — r47' README.md || exit 1
+    grep -Fq '## r47: fix multi-assignment Limine backup cmdline restore validation' README.md || exit 1
+    ! grep -Eq '(^|[[:space:]])(source|eval)[[:space:]].*files/etc/default/limine' lib/r47.sh || exit 1
+    exit 0
+)
+pass 'r47 is layered after r46, keeps backup parsing non-executing, and exposes the restore-preflight fix as the current release'
+
+printf '\nAll r47 regression tests passed.\n'
