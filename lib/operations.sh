@@ -118,7 +118,7 @@ validate_preexisting_grub_artifact_against_limine() {
     [[ -n $source_hash && -n $target_hash ]] || { fail "Could not hash source/pre-existing artifact while classifying $target"; return 1; }
 
     if [[ $source_hash == "$target_hash" ]]; then
-        ok "Pre-existing conventional artifact is bit-identical to validated Limine state; treating as source-shared: $target"
+        ok "Pre-existing boot artifact matches the validated source exactly; preserving and reusing it: $target"
         return 0
     fi
 
